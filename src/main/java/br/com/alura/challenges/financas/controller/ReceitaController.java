@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -24,7 +25,7 @@ public class ReceitaController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody ReceitaRequestDTO receitaRequestDTO, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<Void> save(@Valid @RequestBody ReceitaRequestDTO receitaRequestDTO, UriComponentsBuilder uriComponentsBuilder) {
         Receita receita = ReceitaRequestDTO.toEntity(receitaRequestDTO);
         receita = service.save(receita);
 

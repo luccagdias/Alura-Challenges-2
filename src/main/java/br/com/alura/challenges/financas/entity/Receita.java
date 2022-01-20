@@ -1,6 +1,5 @@
 package br.com.alura.challenges.financas.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
 
