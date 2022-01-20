@@ -5,6 +5,8 @@ import br.com.alura.challenges.financas.repository.ReceitaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReceitaService {
 
@@ -16,5 +18,9 @@ public class ReceitaService {
 
     public Receita save(Receita receita) {
         return repository.save(receita);
+    }
+
+    public List<Receita> findAll() {
+        return repository.findAll();
     }
 }
