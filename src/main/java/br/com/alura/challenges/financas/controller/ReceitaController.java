@@ -22,6 +22,13 @@ public class ReceitaController {
         this.service = service;
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ReceitaResponseDTO> findById(@PathVariable String id) {
+        Receita receita = service.findById(id);
+
+        return ResponseEntity.ok().body(ReceitaResponseDTO.toResponseDTO(receita));
+    }
+
     @GetMapping
     public ResponseEntity<List<ReceitaResponseDTO>> findAll() {
         List<Receita> receitas = service.findAll();

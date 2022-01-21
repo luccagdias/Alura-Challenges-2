@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public abstract class StandardException {
+public class StandardException {
 
     private Integer status;
 
