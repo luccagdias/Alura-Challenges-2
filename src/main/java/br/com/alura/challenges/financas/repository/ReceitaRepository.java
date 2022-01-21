@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReceitaRepository extends JpaRepository<Receita, Long> {
+
+    Receita findByDescricaoIgnoreCase(String descricao);
 }

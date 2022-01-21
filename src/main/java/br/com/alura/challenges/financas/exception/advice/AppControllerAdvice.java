@@ -1,8 +1,8 @@
 package br.com.alura.challenges.financas.exception.advice;
 
+import br.com.alura.challenges.financas.exception.ReceitaAlreadyRegisteredThisMonthException;
 import br.com.alura.challenges.financas.exception.ValidationException;
 import br.com.alura.challenges.financas.exception.standard.StandardException;
-import org.hibernate.type.LocalDateType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -42,7 +42,18 @@ public class AppControllerAdvice {
     public ResponseEntity<StandardException> noSuchElementExceptionHandler(NoSuchElementException exception) {
         StandardException standardException = new StandardException(
                 HttpStatus.BAD_REQUEST.value(),
-                "Não foi encontrado nenhum item para o id indicado",
+                exception.getMessage(),
+                LocalDateTime.now()
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(standardException);
+    }
+
+    @ExceptionHandler(ReceitaAlreadyRegisteredThisMonthException.class)
+    public ResponseEntity<StandardException> receitaAlreadyRegisteredThisMonthExceptionHandler(ReceitaAlreadyRegisteredThisMonthException exception) {
+        StandardException standardException = new StandardException(
+                HttpStatus.BAD_REQUEST.value(),
+                exception.getMessage(),
                 LocalDateTime.now()
         );
 
