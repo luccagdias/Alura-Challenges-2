@@ -68,4 +68,10 @@ public class ReceitaService {
 
         return repository.save(receita);
     }
+
+    public void delete(String id) {
+        Receita receita = findById(id);
+
+        repository.delete(receita);
+    }
 }

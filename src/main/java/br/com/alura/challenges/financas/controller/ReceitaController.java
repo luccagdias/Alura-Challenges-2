@@ -52,4 +52,11 @@ public class ReceitaController {
 
         return ResponseEntity.ok(ReceitaResponseDTO.toResponseDTO(receita));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable String id) {
+        service.delete(id);
+
+        return ResponseEntity.ok("Receita excluída com sucesso");
+    }
 }
