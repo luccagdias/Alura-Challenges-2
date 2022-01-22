@@ -39,15 +39,17 @@ public class ReceitaService {
     }
 
     public boolean alreadyRegisteredThisMonth(Receita receita) {
-        Receita receitaAux = findByDescricao(receita.getDescricao());
-        if (receitaAux != null) {
-            return receita.getData().getMonth().equals(receitaAux.getData().getMonth());
+        List<Receita> receitas = findAllByDescricao(receita.getDescricao());
+        for (Receita r : receitas) {
+            if (receita.getData().getMonth().equals(r.getData().getMonth())) {
+                return true;
+            }
         }
 
         return false;
     }
 
-    public Receita findByDescricao(String descricao) {
-        return repository.findByDescricaoIgnoreCase(descricao);
+    public List<Receita> findAllByDescricao(String descricao) {
+        return repository.findAllByDescricaoIgnoreCase(descricao);
     }
 }
