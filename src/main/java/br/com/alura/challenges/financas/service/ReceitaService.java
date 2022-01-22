@@ -1,7 +1,7 @@
 package br.com.alura.challenges.financas.service;
 
 import br.com.alura.challenges.financas.entity.Receita;
-import br.com.alura.challenges.financas.exception.ReceitaAlreadyRegisteredThisMonthException;
+import br.com.alura.challenges.financas.exception.AlreadyRegisteredThisMonthException;
 import br.com.alura.challenges.financas.repository.ReceitaRepository;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +32,7 @@ public class ReceitaService {
 
     public Receita save(Receita receita) {
         if (alreadyRegisteredThisMonth(receita)) {
-            throw new ReceitaAlreadyRegisteredThisMonthException();
+            throw new AlreadyRegisteredThisMonthException("Uma receita com a mesma descrição já foi cadastrada no mês indicado");
         }
 
         return repository.save(receita);

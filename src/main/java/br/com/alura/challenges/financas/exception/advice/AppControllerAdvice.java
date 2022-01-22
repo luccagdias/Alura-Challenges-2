@@ -1,6 +1,6 @@
 package br.com.alura.challenges.financas.exception.advice;
 
-import br.com.alura.challenges.financas.exception.ReceitaAlreadyRegisteredThisMonthException;
+import br.com.alura.challenges.financas.exception.AlreadyRegisteredThisMonthException;
 import br.com.alura.challenges.financas.exception.ValidationException;
 import br.com.alura.challenges.financas.exception.standard.StandardException;
 import org.springframework.http.HttpStatus;
@@ -49,8 +49,8 @@ public class AppControllerAdvice {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(standardException);
     }
 
-    @ExceptionHandler(ReceitaAlreadyRegisteredThisMonthException.class)
-    public ResponseEntity<StandardException> receitaAlreadyRegisteredThisMonthExceptionHandler(ReceitaAlreadyRegisteredThisMonthException exception) {
+    @ExceptionHandler(AlreadyRegisteredThisMonthException.class)
+    public ResponseEntity<StandardException> alreadyRegisteredThisMonthExceptionHandler(AlreadyRegisteredThisMonthException exception) {
         StandardException standardException = new StandardException(
                 HttpStatus.BAD_REQUEST.value(),
                 exception.getMessage(),
