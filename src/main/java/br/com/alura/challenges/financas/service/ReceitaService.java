@@ -52,4 +52,20 @@ public class ReceitaService {
     public List<Receita> findAllByDescricao(String descricao) {
         return repository.findAllByDescricaoIgnoreCase(descricao);
     }
+
+    public Receita update(Receita receita, String id) {
+        Receita receitaFromDatabase = findById(id);
+        receita.setId(receitaFromDatabase.getId());
+
+        boolean monthIsEqual = receita.getData().getMonth().equals(receitaFromDatabase.getData().getMonth());
+        boolean descricaoIsEqual = receita.getDescricao().equals(receitaFromDatabase.getDescricao());
+
+        // Quando se altera mês ou descrição da receita, faz verificação se receita já existe naquele mês
+        // Esta verificação só é necessária se mês ou descrição estiver sendo alterado
+        if (!monthIsEqual || !descricaoIsEqual) {
+            return this.save(receita);
+        }
+
+        return repository.save(receita);
+    }
 }

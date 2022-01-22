@@ -44,4 +44,12 @@ public class ReceitaController {
         URI uri = uriComponentsBuilder.path("/receitas/{id}").buildAndExpand(receita.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ReceitaResponseDTO> update(@Valid @RequestBody ReceitaRequestDTO receitaRequestDTO, @PathVariable String id) {
+        Receita receita = ReceitaRequestDTO.toEntity(receitaRequestDTO);
+        receita = service.update(receita, id);
+
+        return ResponseEntity.ok(ReceitaResponseDTO.toResponseDTO(receita));
+    }
 }
