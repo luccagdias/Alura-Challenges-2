@@ -30,10 +30,11 @@ public class DespesaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DespesaResponseDTO>> findAll() {
-        List<Despesa> despesas = service.findAll();
+    public ResponseEntity<List<DespesaResponseDTO>> findAll(@RequestParam(required = false) String descricao) {
+        List<Despesa> despesas =
+                (descricao == null) ? service.findAll() : service.findAllByDescricao(descricao);
 
-        return ResponseEntity.ok().body(DespesaResponseDTO.entityListToResponseDTOList(service.findAll()));
+        return ResponseEntity.ok().body(DespesaResponseDTO.entityListToResponseDTOList(despesas));
     }
 
     @PostMapping
