@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 import java.net.URI;
 import java.util.List;
 
@@ -30,10 +31,11 @@ public class ReceitaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ReceitaResponseDTO>> findAll() {
-        List<Receita> receitas = service.findAll();
+    public ResponseEntity<List<ReceitaResponseDTO>> findAll(@RequestParam(required = false) String descricao) {
+        List<Receita> receitas =
+                (descricao == null) ? service.findAll() : service.findAllByDescricao(descricao);
 
-        return ResponseEntity.ok().body(ReceitaResponseDTO.entityListToResponseDTOList(service.findAll()));
+        return ResponseEntity.ok().body(ReceitaResponseDTO.entityListToResponseDTOList(receitas));
     }
 
     @PostMapping
