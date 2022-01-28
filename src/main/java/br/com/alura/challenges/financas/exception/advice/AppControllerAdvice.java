@@ -31,7 +31,7 @@ public class AppControllerAdvice {
     public ResponseEntity<StandardException> numberFormatExceptionHandler(NumberFormatException exception) {
         StandardException standardException = new StandardException(
                 HttpStatus.BAD_REQUEST.value(),
-                "O id deve ser um valor numérico",
+                "Os parâmetros devem ser valores numéricos",
                 LocalDateTime.now()
         );
 
