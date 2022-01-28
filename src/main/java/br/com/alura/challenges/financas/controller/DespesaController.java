@@ -29,6 +29,13 @@ public class DespesaController {
         return ResponseEntity.ok().body(DespesaResponseDTO.toResponseDTO(despesa));
     }
 
+    @GetMapping("/{month}/{year}")
+    public ResponseEntity<List<DespesaResponseDTO>> findByMonth(@PathVariable String month, @PathVariable String year) {
+        List<Despesa> despesas = service.findByMonth(month, year);
+
+        return ResponseEntity.ok().body(DespesaResponseDTO.entityListToResponseDTOList(despesas));
+    }
+
     @GetMapping
     public ResponseEntity<List<DespesaResponseDTO>> findAll(@RequestParam(required = false) String descricao) {
         List<Despesa> despesas =

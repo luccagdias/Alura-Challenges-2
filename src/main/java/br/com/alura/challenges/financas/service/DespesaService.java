@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 public class DespesaService {
@@ -24,6 +25,15 @@ public class DespesaService {
         }
 
         return despesa;
+    }
+
+
+    public List<Despesa> findByMonth(String month, String year) {
+        List<Despesa> despesas = repository.findAll();
+
+        return despesas.stream().filter(despesa ->
+                despesa.getData().getMonth().getValue() == Integer.valueOf(month)
+                        && despesa.getData().getYear() == Integer.valueOf(year)).collect(Collectors.toList());
     }
 
     public List<Despesa> findAll() {
