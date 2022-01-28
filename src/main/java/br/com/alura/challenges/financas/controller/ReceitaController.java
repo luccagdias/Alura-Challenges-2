@@ -30,6 +30,13 @@ public class ReceitaController {
         return ResponseEntity.ok().body(ReceitaResponseDTO.toResponseDTO(receita));
     }
 
+    @GetMapping("/{month}/{year}")
+    public ResponseEntity<List<ReceitaResponseDTO>> findByMonth(@PathVariable String month, @PathVariable String year) {
+        List<Receita> receitas = service.findByMonth(month, year);
+
+        return ResponseEntity.ok().body(ReceitaResponseDTO.entityListToResponseDTOList(receitas));
+    }
+
     @GetMapping
     public ResponseEntity<List<ReceitaResponseDTO>> findAll(@RequestParam(required = false) String descricao) {
         List<Receita> receitas =
