@@ -3,6 +3,7 @@ package br.com.alura.challenges.financas.exception.advice;
 import br.com.alura.challenges.financas.exception.AlreadyRegisteredThisMonthException;
 import br.com.alura.challenges.financas.exception.ValidationException;
 import br.com.alura.challenges.financas.exception.standard.StandardException;
+import com.fasterxml.jackson.databind.exc.ValueInstantiationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -54,6 +55,17 @@ public class AppControllerAdvice {
         StandardException standardException = new StandardException(
                 HttpStatus.BAD_REQUEST.value(),
                 exception.getMessage(),
+                LocalDateTime.now()
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(standardException);
+    }
+
+    @ExceptionHandler(ValueInstantiationException.class)
+    public ResponseEntity<StandardException> valueInstantiationExceptionHandler(ValueInstantiationException exception) {
+        StandardException standardException = new StandardException(
+                HttpStatus.BAD_REQUEST.value(),
+                "As categorias válidas são: Alimentação, Saúde, Moradia, Transporte, Educação, Lazer, Imprevistos ou Outras",
                 LocalDateTime.now()
         );
 

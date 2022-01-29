@@ -1,6 +1,7 @@
 package br.com.alura.challenges.financas.dto.request;
 
 import br.com.alura.challenges.financas.entity.Despesa;
+import br.com.alura.challenges.financas.enums.Categoria;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 
@@ -22,11 +23,18 @@ public class DespesaRequestDTO {
     @JsonFormat(pattern="dd-MM-yyyy")
     private LocalDate data;
 
+    private Categoria categoria;
+
     public static Despesa toEntity(DespesaRequestDTO despesaRequestDTO) {
+        if (despesaRequestDTO.getCategoria() == null) {
+            despesaRequestDTO.categoria = Categoria.OUTRAS;
+        }
+
         return Despesa.builder()
                 .descricao(despesaRequestDTO.getDescricao())
                 .valor(despesaRequestDTO.getValor())
                 .data(despesaRequestDTO.getData())
+                .categoria(despesaRequestDTO.getCategoria())
                 .build();
     }
 }
